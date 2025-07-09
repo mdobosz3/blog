@@ -1,0 +1,24 @@
+<div id="<%= dom_id post %>">
+  <p>
+   <h2> <%= link_to post.title, post %>
+  </p>
+  <small>
+    <p><%= post.content %></p>
+    <p><%= post.created_at %></p>
+  </small>
+</div>
+
+<h2>Comments</h2>
+<% for comment in @post.comments %>
+  <%= comment.body %>
+  <hr />
+<% end %>
+
+<%= form_with url: url_for(action: 'comment', id: @post.id), method: :post, local: true do |form| %>
+  <p>
+    <%= form.text_area :body, name: "comment[body]", rows: 5, cols: 40 %>
+  </p>
+  <p>
+    <%= form.submit "Comment!" %>
+  </p>
+<% end %>
